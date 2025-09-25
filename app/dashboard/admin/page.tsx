@@ -161,8 +161,9 @@ export default function AdminDashboard() {
   }
 
   const handleApproveSubmission = (id: number) => {
-    console.log(`[v0] Approving submission ID: ${id}`)
-    setActiveModal("approve-submission")
+    console.log(`[v0] Approving submission: ${id}`)
+    // Navigate to verification page where the actual approval logic is implemented
+    router.push("/dashboard/admin/verification")
   }
 
   return (

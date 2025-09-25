@@ -94,6 +94,14 @@ export default function HowItWorksPage() {
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="relative mb-8 rounded-lg overflow-hidden">
+            <img
+              src="/images/mobile-app-field.jpg"
+              alt="Community member using mobile app for restoration reporting"
+              className="w-full h-48 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">How It Works</h1>
           <p className="text-xl text-muted-foreground text-pretty">
             A transparent, blockchain-powered process from restoration to carbon credit issuance, ensuring every step is
@@ -174,11 +182,19 @@ export default function HowItWorksPage() {
       {/* Technology Integration */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/30">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Technology Integration</h2>
-            <p className="text-lg text-muted-foreground">
-              Multiple data sources ensure comprehensive verification and transparency
-            </p>
+          <div className="relative mb-12 rounded-lg overflow-hidden">
+            <img
+              src="/images/blockchain-technology.jpg"
+              alt="Technology integration for blue carbon verification"
+              className="w-full h-40 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/80 to-transparent" />
+            <div className="absolute inset-0 flex items-center">
+              <div className="max-w-4xl mx-auto text-center text-white px-4">
+                <h2 className="text-3xl font-bold mb-4">Technology Integration</h2>
+                <p className="text-lg">Multiple data sources ensure comprehensive verification and transparency</p>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

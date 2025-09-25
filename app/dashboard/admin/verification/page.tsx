@@ -24,19 +24,10 @@ import {
   Calendar,
   Download,
 } from "lucide-react"
+import { useState } from "react"
 
 export default function VerificationQueuePage() {
-  const navigationItems = [
-    { href: "/dashboard/admin", label: "Overview", icon: Home },
-    { href: "/dashboard/admin/verification", label: "Verification Queue", icon: CheckCircle, active: true },
-    { href: "/dashboard/admin/projects", label: "All Projects", icon: TreePine },
-    { href: "/dashboard/admin/organizations", label: "Organizations", icon: Users },
-    { href: "/dashboard/admin/analytics", label: "Analytics", icon: BarChart3 },
-    { href: "/dashboard/admin/reports", label: "Reports", icon: FileText },
-    { href: "/dashboard/admin/settings", label: "Settings", icon: Settings },
-  ]
-
-  const pendingSubmissions = [
+  const [pendingSubmissions, setPendingSubmissions] = useState([
     {
       id: 1,
       project: "Sundarbans Mangrove Restoration",
@@ -76,9 +67,9 @@ export default function VerificationQueuePage() {
       status: "pending",
       documents: ["drone-data.zip", "analysis-report.pdf"],
     },
-  ]
+  ])
 
-  const approvedSubmissions = [
+  const [approvedSubmissions, setApprovedSubmissions] = useState([
     {
       id: 4,
       project: "Gujarat Coastal Restoration",
@@ -101,9 +92,9 @@ export default function VerificationQueuePage() {
       area: "40 hectares",
       verifiedBy: "Dr. Sunita Rao",
     },
-  ]
+  ])
 
-  const rejectedSubmissions = [
+  const [rejectedSubmissions, setRejectedSubmissions] = useState([
     {
       id: 6,
       project: "Andhra Pradesh Mangrove Project",
@@ -113,6 +104,18 @@ export default function VerificationQueuePage() {
       reason: "Incomplete documentation - missing drone survey data",
       rejectedBy: "Dr. Sunita Rao",
     },
+  ])
+
+  const [processingId, setProcessingId] = useState<number | null>(null)
+
+  const navigationItems = [
+    { href: "/dashboard/admin", label: "Overview", icon: Home },
+    { href: "/dashboard/admin/verification", label: "Verification Queue", icon: CheckCircle, active: true },
+    { href: "/dashboard/admin/projects", label: "All Projects", icon: TreePine },
+    { href: "/dashboard/admin/organizations", label: "Organizations", icon: Users },
+    { href: "/dashboard/admin/analytics", label: "Analytics", icon: BarChart3 },
+    { href: "/dashboard/admin/reports", label: "Reports", icon: FileText },
+    { href: "/dashboard/admin/settings", label: "Settings", icon: Settings },
   ]
 
   const getPriorityColor = (priority: string) => {
@@ -143,14 +146,76 @@ export default function VerificationQueuePage() {
     }
   }
 
-  const handleApprove = (id: number) => {
+  const handleApprove = async (id: number) => {
     console.log("[v0] Approving submission:", id)
-    // Implementation for approval
+    setProcessingId(id)
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      // Find the submission to approve
+      const submissionToApprove = pendingSubmissions.find((s) => s.id === id)
+      if (submissionToApprove) {
+        // Remove from pending
+        setPendingSubmissions((prev) => prev.filter((s) => s.id !== id))
+
+        // Add to approved with additional fields
+        const approvedSubmission = {
+          id: submissionToApprove.id,
+          project: submissionToApprove.project,
+          organization: submissionToApprove.organization,
+          type: submissionToApprove.type,
+          approvedDate: new Date().toISOString().split("T")[0],
+          credits: submissionToApprove.credits,
+          location: submissionToApprove.location,
+          area: submissionToApprove.area,
+          verifiedBy: "Dr. Rajesh Verma",
+        }
+
+        setApprovedSubmissions((prev) => [approvedSubmission, ...prev])
+        console.log("[v0] Submission approved successfully")
+      }
+    } catch (error) {
+      console.error("[v0] Error approving submission:", error)
+    } finally {
+      setProcessingId(null)
+    }
   }
 
-  const handleReject = (id: number) => {
+  const handleReject = async (id: number) => {
     console.log("[v0] Rejecting submission:", id)
-    // Implementation for rejection
+    setProcessingId(id)
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      // Find the submission to reject
+      const submissionToReject = pendingSubmissions.find((s) => s.id === id)
+      if (submissionToReject) {
+        // Remove from pending
+        setPendingSubmissions((prev) => prev.filter((s) => s.id !== id))
+
+        // Add to rejected with additional fields
+        const rejectedSubmission = {
+          id: submissionToReject.id,
+          project: submissionToReject.project,
+          organization: submissionToReject.organization,
+          type: submissionToReject.type,
+          rejectedDate: new Date().toISOString().split("T")[0],
+          reason: "Requires additional documentation and verification",
+          rejectedBy: "Dr. Rajesh Verma",
+        }
+
+        setRejectedSubmissions((prev) => [rejectedSubmission, ...prev])
+        console.log("[v0] Submission rejected successfully")
+      }
+    } catch (error) {
+      console.error("[v0] Error rejecting submission:", error)
+    } finally {
+      setProcessingId(null)
+    }
   }
 
   const handleDownloadDocument = (document: string) => {
@@ -332,14 +397,19 @@ export default function VerificationQueuePage() {
                       size="sm"
                       variant="outline"
                       onClick={() => handleReject(submission.id)}
+                      disabled={processingId === submission.id}
                       className="text-destructive hover:text-destructive"
                     >
                       <X className="w-4 h-4 mr-1" />
-                      Reject
+                      {processingId === submission.id ? "Rejecting..." : "Reject"}
                     </Button>
-                    <Button size="sm" onClick={() => handleApprove(submission.id)}>
+                    <Button
+                      size="sm"
+                      onClick={() => handleApprove(submission.id)}
+                      disabled={processingId === submission.id}
+                    >
                       <CheckCircle className="w-4 h-4 mr-1" />
-                      Approve
+                      {processingId === submission.id ? "Approving..." : "Approve"}
                     </Button>
                   </div>
                 </CardContent>

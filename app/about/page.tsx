@@ -64,7 +64,7 @@ export default function AboutPage() {
             </div>
             <div className="relative">
               <img
-                src="/mangrove-forest-with-clear-blue-water-and-diverse-.jpg"
+                src="/images/blue-carbon-ecosystem.jpg"
                 alt="Blue carbon ecosystem showing mangroves and marine life"
                 className="rounded-lg shadow-lg w-full"
               />
@@ -76,12 +76,22 @@ export default function AboutPage() {
       {/* India's Climate Goals */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Supporting India's Climate Commitments</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Our platform directly contributes to India's Nationally Determined Contributions (NDCs) and climate
-              targets through verifiable ecosystem restoration.
-            </p>
+          <div className="relative mb-12 rounded-lg overflow-hidden">
+            <img
+              src="/images/mangrove-restoration.jpg"
+              alt="Community members participating in mangrove restoration"
+              className="w-full h-48 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent" />
+            <div className="absolute inset-0 flex items-center">
+              <div className="max-w-3xl mx-auto text-center text-white px-4">
+                <h2 className="text-3xl font-bold mb-4">Supporting India's Climate Commitments</h2>
+                <p className="text-lg">
+                  Our platform directly contributes to India's Nationally Determined Contributions (NDCs) and climate
+                  targets through verifiable ecosystem restoration.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

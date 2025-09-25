@@ -134,6 +134,14 @@ export default function CommunitiesPage() {
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="relative mb-8 rounded-lg overflow-hidden">
+            <img
+              src="/images/community-training.jpg"
+              alt="Coastal community members participating in restoration training"
+              className="w-full h-48 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+          </div>
           <div className="flex justify-center mb-6">
             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center animate-float">
               <Users className="w-8 h-8 text-primary" />
@@ -273,11 +281,19 @@ export default function CommunitiesPage() {
       {/* Success Stories */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-primary/5">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Community Impact</h2>
-            <p className="text-lg text-muted-foreground">
-              Real results from communities participating in blue carbon restoration
-            </p>
+          <div className="relative mb-12 rounded-lg overflow-hidden">
+            <img
+              src="/images/mangrove-restoration.jpg"
+              alt="Successful mangrove restoration by community members"
+              className="w-full h-40 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-chart-2/80 to-transparent" />
+            <div className="absolute inset-0 flex items-center">
+              <div className="max-w-4xl mx-auto text-center text-white px-4">
+                <h2 className="text-3xl font-bold mb-4">Community Impact</h2>
+                <p className="text-lg">Real results from communities participating in blue carbon restoration</p>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

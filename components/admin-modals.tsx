@@ -44,12 +44,31 @@ export function AdminModals({ activeModal, onClose }: AdminModalsProps) {
   const handleReviewSubmission = async (action: "approve" | "reject") => {
     setLoading(true)
     console.log(`[v0] ${action === "approve" ? "Approving" : "Rejecting"} submission...`)
-    // Simulate API call
-    setTimeout(() => {
-      setLoading(false)
-      onClose()
+
+    try {
+      // Simulate API call with proper error handling
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulate occasional API failures for realistic behavior
+          if (Math.random() > 0.9) {
+            reject(new Error("Network error"))
+          } else {
+            resolve(true)
+          }
+        }, 2000)
+      })
+
       console.log(`[v0] Submission ${action}d successfully`)
-    }, 2000)
+      onClose()
+
+      // In a real app, this would trigger a refresh of the parent component's data
+      // For now, we'll just close the modal and let the user see the updated state
+    } catch (error) {
+      console.error(`[v0] Error ${action}ing submission:`, error)
+      // In a real app, you'd show an error toast here
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
